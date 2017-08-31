@@ -199,7 +199,12 @@ class CORS(object):
 
                 return start_response(status, headers, exc_info)
         else:
-            custom_start_response = start_response
+            def custom_start_response(status, headers, exc_info=None):
+                # force Access-Control-Allow-Origin header on non CORS get requests
+                if request_method == "GET":
+                    headers.append(('Access-Control-Allow-Origin', '*'))
+
+                return start_response(status, headers, exc_info)
 
         return self.application(environ, custom_start_response)
 
