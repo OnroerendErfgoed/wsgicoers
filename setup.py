@@ -45,7 +45,7 @@ setup(name='wsgicoers',
       author_email='kraemer.norman@googlemail.com',
       url="https://github.com/may-day/wsgicors",
       license='Apache Software License 2.0',
-      py_modules=["wsgicors"],
+      py_modules=["wsgicoers"],
       install_requires = install_requires,
       tests_require = [
         'nose',
@@ -55,6 +55,6 @@ setup(name='wsgicoers',
       test_suite = 'nose.collector',
       entry_points = """
       [paste.filter_app_factory]
-      middleware = wsgicors:make_middleware
+      middleware = wsgicoers:make_middleware
       """
       )
