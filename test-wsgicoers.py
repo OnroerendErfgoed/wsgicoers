@@ -19,7 +19,7 @@
 # limitations under the License.
 
 from webob import Request, Response
-from wsgicors import make_middleware as mw
+from wsgicoers import make_middleware as mw
 from nose import with_setup
 
 deny = {"policy":"deny"}

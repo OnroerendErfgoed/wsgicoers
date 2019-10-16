@@ -203,6 +203,7 @@ class CORS(object):
                 # force Access-Control-Allow-Origin header on non CORS get requests
                 if request_method == "GET":
                     headers.append(('Access-Control-Allow-Origin', '*'))
+                    headers.append(('Vary', 'Accept'))
 
                 return start_response(status, headers, exc_info)
 
