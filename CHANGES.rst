@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.9.0
+-------------
+
+- Set Vary: Accept header on all responses (#1)
+
 Version 0.8.0
 -------------
 
