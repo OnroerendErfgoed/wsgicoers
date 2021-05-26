@@ -178,6 +178,8 @@ class CORS(object):
 
         if orig and policyname != "deny":
             def custom_start_response(status, headers, exc_info=None):
+                if request_method == "GET":
+                    headers.append(('Vary', 'Accept'))
 
                 policyname, ret_origin = self.selectPolicy(orig, request_method)
                 policy = self.policies[policyname]

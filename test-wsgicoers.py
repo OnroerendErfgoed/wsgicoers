@@ -174,10 +174,10 @@ def test_origin_policy_match():
 
     ### actual request
 
-    for origin, origin_expected, vary_expected in [("localhost", None, None), 
-                                                   ("http://example.com", "http://example.com", "Origin"), 
-                                                   ("example2.com", "example2.com", "Origin"), 
-                                                   ("https://www.example.com", "https://www.example.com", "Origin")]:
+    for origin, origin_expected, vary_expected in [("localhost", None, ["Accept"]),
+                                                   ("http://example.com", "http://example.com", ["Origin", "Accept"]),
+                                                   ("example2.com", "example2.com", ["Origin", "Accept"]),
+                                                   ("https://www.example.com", "https://www.example.com", ["Origin", "Accept"])]:
         yield request_check_result, corsed, "Origin", origin, origin_expected, ("Vary", vary_expected)
 
 
@@ -197,8 +197,8 @@ def test_origin_policy_copy():
 
     ### actual request
 
-    for origin, origin_expected, vary_expected in [("localhost", "localhost", "Origin"), 
-                                                   ("example.com", "example.com", "Origin")]:
+    for origin, origin_expected, vary_expected in [("localhost", "localhost", ["Origin", "Accept"]),
+                                                   ("example.com", "example.com", ["Origin", "Accept"])]:
         yield request_check_result, corsed, "Origin", origin, origin_expected, ("Vary", vary_expected)
 
 @with_setup(setup)
@@ -216,7 +216,7 @@ def test_origin_policy_all():
 
     ### actual request
 
-    for origin, origin_expected, vary_expected in [("localhost", "localhost", None)]:
+    for origin, origin_expected, vary_expected in [("localhost", "localhost", ["Accept"])]:
         yield request_check_result, corsed, "Origin", origin, origin_expected, ("Vary", vary_expected)
 
 @with_setup(setup)
@@ -450,8 +450,9 @@ def request_check_result(corsed, check_header, requested, result_expected, *more
     result=res.headers.get(res_header)
     assert result == result_expected, "ActualRequest %s - %s: expected '%s' but got '%s'" % (casename, res_header, result_expected, result)
     for header, expected in more_header_expectpairs:
-        result=res.headers.get(header)
-        assert result == expected, "ActualRequest %s - %s: expected '%s' but got '%s'" % (casename, header, expected, result)
+        result=res.headers.getall(header)
+        for r in result:
+            assert r in expected, "ActualRequest %s - %s: expected '%s' but got '%s'" % (casename, header, expected, result)
 
 def getResponseHeaderName(name):
     rename={
