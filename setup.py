@@ -11,7 +11,7 @@ def readfile(fname):
     return codecs.open(os.path.join(here, fname), encoding='utf-8').read()
 
 
-version = '0.10.0'
+version = '0.11.0'
 
 README = readfile('README.rst')
 CHANGES = readfile('CHANGES.rst')

@@ -1,8 +1,13 @@
 Changes
 =======
 
+Version 0.11.0
+--------------
+
+- remove install_requires=["backports.functools_lru_cache >= 1.0"] (#3)
+
 Version 0.10.0
--------------
+--------------
 
 - Set Vary: Accept header on all responses (#2)
 
