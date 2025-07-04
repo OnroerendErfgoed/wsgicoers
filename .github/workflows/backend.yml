@@ -1,0 +1,58 @@
+name: Test
+
+on:
+  pull_request:
+    paths:
+      - backend/**
+      - .github/workflows/backend.yaml
+      - alembic/**
+  push:
+    branches:
+      - main
+
+env:
+  PYTHON_VERSION: '3.12'
+  PYTHON_VENV: 'wsgicoers_venv'
+
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        python-version: [ "3.11", "3.12" ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        working-directory: ./
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install pip-tools
+          pip-sync requirements-dev.txt
+          pip install -e .
+
+      - name: Python tests
+        run: |
+          source ${{ env.PYTHON_VENV }}/bin/activate
+          flake8
+          pytest --cov-report xml:${{ runner.temp }}/coverage.xml --cov=oproeppremieaanvragen tests
+
+      - name: Get Cover
+        uses: orgoro/coverage@v3.2
+        with:
+            coverageFile: ${{ runner.temp }}/coverage.xml
+            token: ${{ secrets.GITHUB_TOKEN }}
+            sourceDir: backend/oproeppremieaanvragen
+            thresholdAll: 0.5
+            thresholdNew: 0.9
+            thresholdModified: 0.8

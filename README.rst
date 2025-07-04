@@ -1,8 +1,8 @@
 wsgicors
 ========
 
-.. image:: https://travis-ci.org/may-day/wsgicors.svg?branch=master
-    :target: https://travis-ci.org/may-day/wsgicors
+.. image:: https://github.com/OnroerendErfgoed/wsgicoers/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/OnroerendErfgoed/wsgicoers/actions/workflows/test.yml
 
 This is a WSGI middleware that answers CORS preflight requests and adds
 the needed header to the response. For CORS see:
@@ -132,3 +132,43 @@ An alternative matching strategy would be ``verbmatch``, that selects the first 
 
 - use ``firstmatch`` (the default) to select the first of the policies that matches on the ``origin`` keyword
 - use ``verbmatch`` to select the first of the policies that matches on the ``methods`` and ``origin`` keyword
+
+Installation
+------------
+
+Install from PyPI:
+
+.. code-block:: bash
+
+    pip install wsgicoers
+
+Or install from source:
+
+.. code-block:: bash
+
+    git clone https://github.com/OnroerendErfgoed/wsgicoers.git
+    cd wsgicoers
+    pip install .
+
+Development
+-----------
+
+For development, install in editable mode with test dependencies:
+
+.. code-block:: bash
+
+    git clone https://github.com/OnroerendErfgoed/wsgicoers.git
+    cd wsgicoers
+    pip install -e ".[test]"
+
+Run tests:
+
+.. code-block:: bash
+
+    pytest
+
+Build package:
+
+.. code-block:: bash
+
+    python -m build
