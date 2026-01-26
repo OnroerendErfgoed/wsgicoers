@@ -35,7 +35,7 @@ jobs:
         run: |
           source ${{ env.PYTHON_VENV }}/bin/activate
           flake8
-          pytest --cov-report xml:${{ runner.temp }}/coverage.xml --cov=wsgicoers test_wsgicoers
+          pytest test_wsgicoers.py --exitfirst --capture=no -vvv --full-trace --cov-report xml:${{ runner.temp }}/coverage.xml --cov=wsgicoers
 
       - name: Get Cover
         uses: orgoro/coverage@v3.2
