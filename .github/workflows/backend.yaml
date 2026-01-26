@@ -28,7 +28,7 @@ jobs:
           python3 -m venv ${{ env.PYTHON_VENV }}
           source ${{ env.PYTHON_VENV }}/bin/activate
           pip install pip-tools
-          pip-sync requirements-dev.txt
+          pip-sync requirements-ci.txt
           pip install -e .
 
       - name: Python tests
