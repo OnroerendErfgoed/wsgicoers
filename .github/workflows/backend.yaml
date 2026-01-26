@@ -1,0 +1,49 @@
+name: wsgicoers backend tests
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/backend.yaml
+      - pyproject.toml
+      - requirements*.txt
+      - test_wsgicoers.py
+      - wsgicoers.py
+env:
+  PYTHON_VERSION: '3.11'
+  PYTHON_VENV: 'wsgicoers_venv'
+
+jobs:
+  test:
+    name: Backend tests
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install python requirements
+        run: |
+          python3 -m venv ${{ env.PYTHON_VENV }}
+          source ${{ env.PYTHON_VENV }}/bin/activate
+          pip install pip-tools
+          pip-sync requirements-dev.txt
+          pip install -e .
+
+      - name: Python tests
+        run: |
+          source ${{ env.PYTHON_VENV }}/bin/activate
+          flake8
+          pytest --cov-report xml:${{ runner.temp }}/coverage.xml --cov=wsgicoers test_wsgicoers
+
+      - name: Get Cover
+        uses: orgoro/coverage@v3.2
+        with:
+          coverageFile: ${{ runner.temp }}/coverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceDir: wsgicoers
+          thresholdAll: 0.5
+          thresholdNew: 0.9
+          thresholdModified: 0.8
+
