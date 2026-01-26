@@ -98,3 +98,5 @@ urllib3==2.5.0
     #   responses
 virtualenv==20.34.0
     # via pre-commit
+webob==1.8.9
+    # via wsgicoers (pyproject.toml)
