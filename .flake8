@@ -1,0 +1,10 @@
+[flake8]
+application_import_names = oproeppremieaanvragen,tests
+import-order-style = pycharm
+filename =
+    ./test_wsgicoers.py
+    ./wsgicoers.py
+
+max-line-length = 80
+extend-select = B950
+extend-ignore = E203,E501,E701

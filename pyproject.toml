@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wsgicoers"
+version = "0.11.0"
+description = "WSGI for Cross Origin Resource Sharing (CORS)"
+readme = {file = "README.rst", content-type = "text/x-rst"}
+requires-python = ">=3.11"
+license = {text = "Apache Software License 2.0"}
+authors = [
+    { name = "Flanders Heritage Agency", email = "ict@onroerenderfgoed.be" },
+]
+keywords = ["wsgi", "cors"]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: WSGI",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.8.0",
+    "coveralls>=4.0.1",
+    "flake8-bugbear>=24.8.19",
+    "flake8-import-order>=0.18.2",
+    "flake8>=7.1.1",
+    "hatchling>=1.27.0",
+    "pre-commit>=3.8.0",
+    "pytest-cov>=5.0.0",
+    "pytest>=8.3.3",
+    "responses>=0.25.3",
+    "webob>=1.8.9"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/OnroerendErfgoed/wsgicoers"
+"Bug Reports" = "https://github.com/OnroerendErfgoed/wsgicoers/issues"
+"Source" = "https://github.com/OnroerendErfgoed/wsgicoers"
+
+[project.entry-points."paste.filter_app_factory"]
+middleware = "wsgicoers:make_middleware"
+
+[tool.hatch.metadata]
+# This allows us to use github links as dependencies
+allow-direct-references = true
