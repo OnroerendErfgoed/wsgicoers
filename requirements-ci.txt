@@ -20,7 +20,7 @@ distlib==0.4.0
     # via virtualenv
 docopt==0.6.2
     # via coveralls
-filelock==3.19.1
+filelock==3.20.3
     # via virtualenv
 flake8==7.3.0
     # via
