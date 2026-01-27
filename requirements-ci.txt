@@ -92,7 +92,7 @@ setuptools==80.9.0
     # via flake8-import-order
 trove-classifiers==2025.8.6.13
     # via hatchling
-urllib3==2.5.0
+urllib3==2.6.3
     # via
     #   requests
     #   responses
