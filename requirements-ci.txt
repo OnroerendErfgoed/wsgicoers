@@ -70,7 +70,7 @@ pycodestyle==2.14.0
     #   flake8-import-order
 pyflakes==3.4.0
     # via flake8
-pygments==2.19.2
+pygments==2.20.0
     # via pytest
 pytest==9.0.2
     # via
